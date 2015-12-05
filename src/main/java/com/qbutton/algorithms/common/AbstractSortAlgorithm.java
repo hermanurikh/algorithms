@@ -36,4 +36,14 @@ public class AbstractSortAlgorithm {
         array[positionA] = array[positionB];
         array[positionB] = memorizedField;
     }
+
+    /**
+     * Checks that the entered array is valid.
+     * @param array array
+     */
+    protected void checkNotNull(int[] array) {
+        if (array == null || array.length == 0) {
+            throw new NullPointerException("The array should contain data!");
+        }
+    }
 }

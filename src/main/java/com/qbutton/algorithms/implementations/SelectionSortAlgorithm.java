@@ -21,7 +21,7 @@ public class SelectionSortAlgorithm extends AbstractSortAlgorithm {
      */
     @Measurable
     public void sort(int[] array) {
-        if (array == null || array.length == 0) return;
+        checkNotNull(array);
         for (int i = 0; i < array.length - 1; i++) {
             int minimumIndex = i;
             for (int j = i + 1; j < array.length; j++) {

@@ -1,6 +1,7 @@
 package com.qbutton.algorithms.common;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * A common test class for sorting algorithm.
  *
@@ -18,21 +21,21 @@ import java.util.Properties;
  * @since version 1.0 on 05.12.15.
  */
 @ContextConfiguration(locations = "/spring.xml")
-public class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
+public abstract class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
     /**
      * A AbstractSortAlgorithm instance.
      */
     @Autowired
     @Qualifier(value = "abstractSortAlgorithm")
-    protected AbstractSortAlgorithm abstractSortAlgorithm;
+    private AbstractSortAlgorithm abstractSortAlgorithm;
     /**
      * An array to be sorted.
      */
-    protected int[] initialArray;
+    private int[] initialArray;
     /**
      * An array that will be the sorted initialArray.
      */
-    protected int[] resultArray;
+    private int[] resultArray;
 
     /**
      * Initialize the base and sorted array.
@@ -49,4 +52,19 @@ public class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
         resultArray = Arrays.copyOf(initialArray, initialArray.length);
         abstractSortAlgorithm.sort(resultArray);
     }
+
+    /**
+     * Tests the sorting.
+     */
+    @Test
+    public void testSort() {
+        getAlgorithm().sort(initialArray);
+        assertTrue(Arrays.equals(initialArray, resultArray));
+    }
+
+    /**
+     * Returns the instance of AbstractSortAlgorithm to be tested.
+     * @return the tested instance
+     */
+    protected abstract AbstractSortAlgorithm getAlgorithm();
 }
