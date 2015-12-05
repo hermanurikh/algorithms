@@ -28,11 +28,11 @@ public class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
     /**
      * An array to be sorted.
      */
-    protected static int[] initialArray;
+    protected int[] initialArray;
     /**
      * An array that will be the sorted initialArray.
      */
-    protected static int[] resultArray;
+    protected int[] resultArray;
 
     /**
      * Initialize the base and sorted array.
