@@ -2,7 +2,10 @@ package com.qbutton.algorithms.common;
 
 import org.junit.BeforeClass;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * An abstract test class for sorting algorithm.
@@ -18,17 +21,25 @@ public abstract class AbstractSortAlgorithmTest {
     /**
      * An array to be sorted.
      */
-    protected static int[] initialArray = {9, 0, -1, -1, 6, 5, 6, 84, -283, 44};
+    protected static int[] initialArray;
     /**
      * An array that will be the sorted initialArray.
      */
-    protected static int[] resultArray = Arrays.copyOf(initialArray, initialArray.length);
+    protected static int[] resultArray;
 
     /**
-     * AbstractSortAlgorithm array by default java method.
+     * Initialize the base and sorted array.
      */
     @BeforeClass
-    public static void sortArray() {
+    public static void initializeArrays() throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("largeArray.properties"));
+        String[] stringArray = properties.getProperty("array").split(",");
+        initialArray = new int[stringArray.length];
+        for (int i = 0; i < stringArray.length; i++) {
+            initialArray[i] = Integer.parseInt(stringArray[i]);
+        }
+        resultArray = Arrays.copyOf(initialArray, initialArray.length);
         Arrays.sort(resultArray);
     }
 }
