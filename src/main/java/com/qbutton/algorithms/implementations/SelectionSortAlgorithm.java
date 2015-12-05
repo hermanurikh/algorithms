@@ -1,6 +1,6 @@
 package com.qbutton.algorithms.implementations;
 
-import com.qbutton.algorithms.common.AbstractSortAlgorithm;
+import com.qbutton.algorithms.common.BaseSortAlgorithm;
 import com.qbutton.algorithms.common.Measurable;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @since version 1.0 on 03.12.15.
  */
 @Component
-public class SelectionSortAlgorithm extends AbstractSortAlgorithm {
+public class SelectionSortAlgorithm extends BaseSortAlgorithm {
     /**
      * {@inheritDoc}
      */

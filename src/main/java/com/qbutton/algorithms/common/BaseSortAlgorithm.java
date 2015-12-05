@@ -11,13 +11,14 @@ import java.util.Arrays;
  * @since version 1.0 on 03.12.15.
  */
 @Component
-public class AbstractSortAlgorithm {
+public class BaseSortAlgorithm {
     /**
      * The field to keep in memory while swapping.
      */
     private int memorizedField;
     /**
-     * The main sort method. By default the implementation is from {@code java.utils}.
+     * The main sort method.
+     * By default the implementation is from {@code java.util.Arrays}.
      * @param array the array to be sorted
      */
     @Measurable

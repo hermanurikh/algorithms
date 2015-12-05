@@ -15,19 +15,19 @@ import java.util.Properties;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A common test class for sorting algorithm.
+ * An abstract test class for sorting algorithm.
  *
  * @author German Urikh
  * @since version 1.0 on 05.12.15.
  */
 @ContextConfiguration(locations = "/spring.xml")
-public abstract class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
+public abstract class AbstractSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
     /**
      * A AbstractSortAlgorithm instance.
      */
     @Autowired
-    @Qualifier(value = "abstractSortAlgorithm")
-    private AbstractSortAlgorithm abstractSortAlgorithm;
+    @Qualifier(value = "baseSortAlgorithm")
+    private BaseSortAlgorithm baseSortAlgorithm;
     /**
      * An array to be sorted.
      */
@@ -50,7 +50,7 @@ public abstract class CommonSortAlgorithmTest extends AbstractJUnit4SpringContex
             initialArray[i] = Integer.parseInt(stringArray[i]);
         }
         resultArray = Arrays.copyOf(initialArray, initialArray.length);
-        abstractSortAlgorithm.sort(resultArray);
+        baseSortAlgorithm.sort(resultArray);
     }
 
     /**
@@ -66,5 +66,5 @@ public abstract class CommonSortAlgorithmTest extends AbstractJUnit4SpringContex
      * Returns the instance of AbstractSortAlgorithm to be tested.
      * @return the tested instance
      */
-    protected abstract AbstractSortAlgorithm getAlgorithm();
+    protected abstract BaseSortAlgorithm getAlgorithm();
 }
