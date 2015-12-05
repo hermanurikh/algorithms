@@ -19,6 +19,7 @@ public class SelectionSortAlgorithm extends BaseSortAlgorithm {
     /**
      * {@inheritDoc}
      */
+    @Override
     @Measurable
     public void sort(int[] array) {
         checkNotNull(array);
