@@ -3,7 +3,6 @@ package com.qbutton.algorithms.implementations;
 import com.qbutton.algorithms.common.AbstractSortAlgorithm;
 import com.qbutton.algorithms.common.Measurable;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  * Selection sort algorithm implementation (сортировка выбором).
