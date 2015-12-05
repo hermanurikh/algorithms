@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 /**
  * Selection sort algorithm implementation (сортировка выбором).
  *
+ * The minimum element of the array is searched for and swapped with the current
+ * cursor position. After that the cursor moves forward, and the same operation is
+ * made with the rest of the array till the cursor is before the last element.
+ *
  * @author German Urikh
  * @since version 1.0 on 03.12.15.
  */
