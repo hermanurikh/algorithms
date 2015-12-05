@@ -1,8 +1,11 @@
 package com.qbutton.algorithms.implementations;
 
-import com.qbutton.algorithms.common.AbstractSortAlgorithmTest;
-import org.junit.Before;
+import com.qbutton.algorithms.common.AbstractSortAlgorithm;
+import com.qbutton.algorithms.common.CommonSortAlgorithmTest;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Arrays;
 
@@ -14,14 +17,14 @@ import static org.junit.Assert.*;
  * @author German Urikh
  * @since version 1.0 on 04.12.15.
  */
-public class SelectionSortAlgorithmTest extends AbstractSortAlgorithmTest {
+@ContextConfiguration(locations = "/spring.xml")
+public class SelectionSortAlgorithmTest extends CommonSortAlgorithmTest {
     /**
-     * Instantiates the abstractSortAlgorithm instance.
+     * A AbstractSortAlgorithm instance.
      */
-    @Before
-    public void instantiateSort() {
-        abstractSortAlgorithm = new SelectionSortAlgorithm();
-    }
+    @Autowired
+    @Qualifier(value = "selectionSortAlgorithm")
+    protected AbstractSortAlgorithm abstractSortAlgorithm;
 
     /**
      * Tests the sorting.

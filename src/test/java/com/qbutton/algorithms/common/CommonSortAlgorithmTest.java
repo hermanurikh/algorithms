@@ -1,6 +1,11 @@
 package com.qbutton.algorithms.common;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,15 +13,18 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * An abstract test class for sorting algorithm.
+ * A common test class for sorting algorithm.
  *
  * @author German Urikh
  * @since version 1.0 on 05.12.15.
  */
-public abstract class AbstractSortAlgorithmTest {
+@ContextConfiguration(locations = "/spring.xml")
+public class CommonSortAlgorithmTest extends AbstractJUnit4SpringContextTests {
     /**
      * A AbstractSortAlgorithm instance.
      */
+    @Autowired
+    @Qualifier(value = "abstractSortAlgorithm")
     protected AbstractSortAlgorithm abstractSortAlgorithm;
     /**
      * An array to be sorted.
@@ -30,8 +38,8 @@ public abstract class AbstractSortAlgorithmTest {
     /**
      * Initialize the base and sorted array.
      */
-    @BeforeClass
-    public static void initializeArrays() throws IOException {
+    @Before
+    public void initializeArrays() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("largeArray.properties"));
         String[] stringArray = properties.getProperty("array").split(",");
@@ -40,6 +48,6 @@ public abstract class AbstractSortAlgorithmTest {
             initialArray[i] = Integer.parseInt(stringArray[i]);
         }
         resultArray = Arrays.copyOf(initialArray, initialArray.length);
-        Arrays.sort(resultArray);
+        abstractSortAlgorithm.sort(resultArray);
     }
 }

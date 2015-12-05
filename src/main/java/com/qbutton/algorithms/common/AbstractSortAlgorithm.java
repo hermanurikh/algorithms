@@ -1,21 +1,29 @@
 package com.qbutton.algorithms.common;
 
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
 /**
- * A base abstract class with common methods.
+ * A base class with common methods and default implementation.
  *
  * @author German Urikh
  * @since version 1.0 on 03.12.15.
  */
-public abstract class AbstractSortAlgorithm {
+@Component
+public class AbstractSortAlgorithm {
     /**
      * The field to keep in memory while swapping.
      */
     private int memorizedField;
     /**
-     * The main sort method to be implemented.
+     * The main sort method. By default the implementation is from {@code java.utils}.
      * @param array the array to be sorted
      */
-    public abstract void sort(int[] array);
+    @Measurable
+    public void sort(int[] array) {
+        Arrays.sort(array);
+    }
 
     /**
      * Swaps the two elements in the array.
