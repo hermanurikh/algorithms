@@ -1,24 +1,24 @@
 package com.qbutton.algorithms.implementations;
 
-import com.qbutton.algorithms.common.BaseSortAlgorithm;
 import com.qbutton.algorithms.common.AbstractSortAlgorithmTest;
+import com.qbutton.algorithms.common.BaseSortAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * SelectionSortAlgorithm test.
+ * CocktailSortAlgorithm test.
  *
  * @author German Urikh
- * @since version 1.0 on 04.12.15.
+ * @since version 1.0 on 17.12.15.
  */
 @ContextConfiguration(locations = "/spring.xml")
-public final class SelectionSortAlgorithmTest extends AbstractSortAlgorithmTest {
+public final class CocktailSortAlgorithmTest extends AbstractSortAlgorithmTest {
     /**
      * An AbstractSortAlgorithm instance.
      */
     @Autowired
-    @Qualifier(value = "selectionSortAlgorithm")
+    @Qualifier(value = "cocktailSortAlgorithm")
     private BaseSortAlgorithm baseSortAlgorithm;
 
     /**

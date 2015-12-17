@@ -15,7 +15,7 @@ public class BaseSortAlgorithm {
     /**
      * The field to keep in memory while swapping.
      */
-    private int memorizedField;
+    private static int memorizedField;
     /**
      * The main sort method.
      * By default the implementation is from {@code java.util.Arrays}.
@@ -32,7 +32,7 @@ public class BaseSortAlgorithm {
      * @param positionA first position
      * @param positionB second position
      */
-    protected void swap(int[] array, int positionA, int positionB) {
+    protected static void swap(int[] array, int positionA, int positionB) {
         memorizedField = array[positionA];
         array[positionA] = array[positionB];
         array[positionB] = memorizedField;

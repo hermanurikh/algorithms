@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = "/spring.xml")
 public final class BubbleSortAlgorithmTest extends AbstractSortAlgorithmTest {
     /**
-     * A AbstractSortAlgorithm instance.
+     * An AbstractSortAlgorithm instance.
      */
     @Autowired
     @Qualifier(value = "bubbleSortAlgorithm")
