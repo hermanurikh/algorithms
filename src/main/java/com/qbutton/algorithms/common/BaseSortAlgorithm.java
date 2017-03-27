@@ -8,14 +8,10 @@ import java.util.Arrays;
  * A base class with common methods and default implementation.
  *
  * @author German Urikh
- * @since version 1.0 on 03.12.15.
+ * @since version 1.1 on 28.03.17.
  */
 @Component
 public class BaseSortAlgorithm {
-    /**
-     * The field to keep in memory while swapping.
-     */
-    private static int memorizedField;
     /**
      * The main sort method.
      * By default the implementation is from {@code java.util.Arrays}.
@@ -33,9 +29,9 @@ public class BaseSortAlgorithm {
      * @param positionB second position
      */
     protected static void swap(int[] array, int positionA, int positionB) {
-        memorizedField = array[positionA];
-        array[positionA] = array[positionB];
-        array[positionB] = memorizedField;
+        array[positionA] = array[positionA] ^ array[positionB];
+        array[positionB] = array[positionA] ^ array[positionB];
+        array[positionA] = array[positionA] ^ array[positionB];
     }
 
     /**
