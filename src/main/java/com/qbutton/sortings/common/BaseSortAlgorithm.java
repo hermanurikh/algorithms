@@ -1,5 +1,6 @@
-package com.qbutton.algorithms.common;
+package com.qbutton.sortings.common;
 
+import com.qbutton.common.Measurable;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

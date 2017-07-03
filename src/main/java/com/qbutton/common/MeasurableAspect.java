@@ -1,7 +1,6 @@
-package com.qbutton.algorithms.common;
+package com.qbutton.common;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +26,7 @@ public class MeasurableAspect {
      * @return proceed on joinPoint
      * @throws Throwable
      */
-    @Around(value = "@annotation(com.qbutton.algorithms.common.Measurable)")
+    @Around(value = "@annotation(com.qbutton.common.Measurable)")
     public Object measureTime(final ProceedingJoinPoint joinPoint) throws Throwable {
         final long startMillis = System.currentTimeMillis();
         try {

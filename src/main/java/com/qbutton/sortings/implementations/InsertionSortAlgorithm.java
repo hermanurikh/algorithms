@@ -1,7 +1,7 @@
-package com.qbutton.algorithms.implementations;
+package com.qbutton.sortings.implementations;
 
-import com.qbutton.algorithms.common.BaseSortAlgorithm;
-import com.qbutton.algorithms.common.Measurable;
+import com.qbutton.sortings.common.BaseSortAlgorithm;
+import com.qbutton.common.Measurable;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

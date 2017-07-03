@@ -1,24 +1,24 @@
-package com.qbutton.algorithms.implementations;
+package com.qbutton.sortings.implementations;
 
-import com.qbutton.algorithms.common.AbstractSortAlgorithmTest;
-import com.qbutton.algorithms.common.BaseSortAlgorithm;
+import com.qbutton.sortings.common.AbstractSortAlgorithmTest;
+import com.qbutton.sortings.common.BaseSortAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * CocktailSortAlgorithm test.
+ * GnomeSortAlgorithm test.
  *
  * @author German Urikh
- * @since version 1.0 on 17.12.15.
+ * @since version 1.0 on 03.01.16.
  */
 @ContextConfiguration(locations = "/spring.xml")
-public final class CocktailSortAlgorithmTest extends AbstractSortAlgorithmTest {
+public final class GnomeSortAlgorithmTest extends AbstractSortAlgorithmTest {
     /**
      * An AbstractSortAlgorithm instance.
      */
     @Autowired
-    @Qualifier(value = "cocktailSortAlgorithm")
+    @Qualifier(value = "gnomeSortAlgorithm")
     private BaseSortAlgorithm baseSortAlgorithm;
 
     /**

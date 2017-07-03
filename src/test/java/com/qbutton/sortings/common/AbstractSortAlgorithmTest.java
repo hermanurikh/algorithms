@@ -1,4 +1,4 @@
-package com.qbutton.algorithms.common;
+package com.qbutton.sortings.common;
 
 import org.junit.Before;
 import org.junit.Test;
