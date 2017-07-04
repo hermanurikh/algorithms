@@ -17,4 +17,9 @@ public final class DivisionHashData extends AbstractHashData {
     public int hashCode() {
         return value % 31;
     }
+
+    @Override
+    public String toString() {
+        return "DivisionHashData{}";
+    }
 }

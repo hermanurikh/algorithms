@@ -14,4 +14,9 @@ public class DoubleHashingSet<T extends AbstractHashData> extends AbstractHashSe
                 ? result % MAX_SIZE_THRESHOLD
                 : result;
     }
+
+    @Override
+    public String toString() {
+        return "DoubleHashingSet{}";
+    }
 }

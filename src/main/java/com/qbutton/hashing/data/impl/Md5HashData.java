@@ -21,4 +21,9 @@ public final class Md5HashData extends CryptoHashData {
     protected MessageDigest getAlgorithm() throws NoSuchAlgorithmException {
         return MessageDigest.getInstance("MD5");
     }
+
+    @Override
+    public String toString() {
+        return "Md5HashData{}";
+    }
 }

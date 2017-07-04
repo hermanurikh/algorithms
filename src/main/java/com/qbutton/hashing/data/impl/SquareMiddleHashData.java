@@ -22,4 +22,9 @@ public final class SquareMiddleHashData extends AbstractHashData {
         //return 10 oldest bits
         return result % 1024;
     }
+
+    @Override
+    public String toString() {
+        return "SquareMiddleHashData{}";
+    }
 }

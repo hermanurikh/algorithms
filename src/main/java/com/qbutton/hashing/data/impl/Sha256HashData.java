@@ -21,4 +21,9 @@ public final class Sha256HashData extends CryptoHashData {
     protected MessageDigest getAlgorithm() throws NoSuchAlgorithmException {
         return MessageDigest.getInstance("SHA-256");
     }
+
+    @Override
+    public String toString() {
+        return "Sha256HashData{}";
+    }
 }

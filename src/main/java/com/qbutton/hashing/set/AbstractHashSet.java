@@ -36,7 +36,7 @@ public abstract class AbstractHashSet<T extends AbstractHashData> {
             throw new IllegalStateException("Set is full");
         }
         int initialHash = value.hashCode();
-        int index = initialHash % MAX_SIZE_THRESHOLD;
+        int index = Math.abs(initialHash) % MAX_SIZE_THRESHOLD;
         while (array[index] != null) {
             if (array[index].equals(value)) {
                 //set should not contain equal values
@@ -56,7 +56,7 @@ public abstract class AbstractHashSet<T extends AbstractHashData> {
      */
     @SuppressWarnings("unchecked")
     public T get(T value) {
-        int index = value.hashCode() % MAX_SIZE_THRESHOLD;
+        int index = Math.abs(value.hashCode()) % MAX_SIZE_THRESHOLD;
         while(array[index] != null) {
             if (array[index].equals(value)) {
                 return (T) array[index];

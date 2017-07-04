@@ -9,6 +9,13 @@ import com.qbutton.hashing.set.AbstractHashSet;
 public class LinearProbingSet<T extends AbstractHashData> extends AbstractHashSet<T> {
     @Override
     public int getNewIndex(int currentIndex) {
-        return ++currentIndex;
+        return ++currentIndex >= MAX_SIZE_THRESHOLD
+                ? currentIndex % MAX_SIZE_THRESHOLD
+                : currentIndex;
+    }
+
+    @Override
+    public String toString() {
+        return "LinearProbingSet{}";
     }
 }
