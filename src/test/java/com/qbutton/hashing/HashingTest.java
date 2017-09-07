@@ -116,7 +116,5 @@ public class HashingTest<T extends AbstractHashData, D extends AbstractHashSet<T
         }
         final long timeTaken = System.currentTimeMillis() - startMillis;
         LOGGER.warn(String.format("Reading %d elements from %s of %s took %d", array.length, set, array[0], timeTaken));
-
     }
-
 }
