@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * An abstract test class for sorting algorithm.
@@ -59,7 +59,7 @@ public abstract class AbstractSortAlgorithmTest extends AbstractJUnit4SpringCont
     @Test
     public void testSort() {
         getAlgorithm().sort(initialArray);
-        assertTrue(Arrays.equals(initialArray, resultArray));
+        assertArrayEquals(initialArray, resultArray);
     }
 
     /**
