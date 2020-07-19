@@ -17,33 +17,35 @@ public class SegmentTreeFindMinTest {
 
     private final int from;
     private final int to;
-    private final int min;
+    private final int minVal;
+    private final int minIdx;
 
-    public SegmentTreeFindMinTest(int from, int to, int min) {
+    public SegmentTreeFindMinTest(int from, int to, int minVal, int minIdx) {
         this.from = from;
         this.to = to;
-        this.min = min;
+        this.minVal = minVal;
+        this.minIdx = minIdx;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> inputData() {
         return Arrays.asList(new Object[][] {
-                {0,0,1},
-                {1,1,0},
-                {2,2,3},
-                {3,3,-5},
-                {4,4,4},
-                {5,5,6},
-                {6,6,2},
-                {0,1,0},
-                {0,2,0},
-                {0,3,-5},
-                {0,4,-5},
-                {0,5,-5},
-                {0,6,-5},
-                {2,3,-5},
-                {4,5,4},
-                {4,6,2}
+                {0,0,1,0},
+                {1,1,0,1},
+                {2,2,3,2},
+                {3,3,-5,3},
+                {4,4,4,4},
+                {5,5,6,5},
+                {6,6,2,6},
+                {0,1,0,1},
+                {0,2,0,1},
+                {0,3,-5,3},
+                {0,4,-5,3},
+                {0,5,-5,3},
+                {0,6,-5,3},
+                {2,3,-5,3},
+                {4,5,4,4},
+                {4,6,2,6}
         });
     }
 
@@ -53,9 +55,10 @@ public class SegmentTreeFindMinTest {
         var segmentTree = new SegmentTree(array);
 
         //when
-        var foundMin = segmentTree.findMin(from, to);
+        SegmentTree.El foundMin = segmentTree.findMin(from, to);
 
         //then
-        assertThat(foundMin, is(min));
+        assertThat(foundMin.val, is(minVal));
+        assertThat(foundMin.idx, is(minIdx));
     }
 }

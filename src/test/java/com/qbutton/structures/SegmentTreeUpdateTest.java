@@ -15,11 +15,12 @@ public class SegmentTreeUpdateTest {
 
         //when
         segmentTree.incrementBy(3, 0, 3);
-        int foundMin = segmentTree.findMin(0, 3);
+        SegmentTree.El foundMin = segmentTree.findMin(0, 3);
 
         //then
         //then
-        assertThat(foundMin, is(2));
+        assertThat(foundMin.val, is(2));
+        assertThat(foundMin.idx, is(0));
     }
 
     @Test
@@ -30,11 +31,12 @@ public class SegmentTreeUpdateTest {
         //when
         segmentTree.incrementBy(3, 0, 3);
         segmentTree.incrementBy(1, 0, 3);
-        int foundMin = segmentTree.findMin(0, 3);
+        SegmentTree.El foundMin = segmentTree.findMin(0, 3);
 
         //then
         //then
-        assertThat(foundMin, is(3));
+        assertThat(foundMin.val, is(3));
+        assertThat(foundMin.idx, is(0));
     }
 
     @Test
@@ -47,11 +49,12 @@ public class SegmentTreeUpdateTest {
         segmentTree.incrementBy(3, 0, 3);
         segmentTree.incrementBy(1, 0, 3);
         segmentTree.incrementBy(3, 0, 0);
-        int foundMin = segmentTree.findMin(0, 3);
+        SegmentTree.El foundMin = segmentTree.findMin(0, 3);
 
         //then
         //then
-        assertThat(foundMin, is(5));
+        assertThat(foundMin.val, is(5));
+        assertThat(foundMin.idx, is(3));
     }
 
     @Test
@@ -64,10 +67,11 @@ public class SegmentTreeUpdateTest {
         segmentTree.incrementBy(3, 0, 3);
         segmentTree.incrementBy(1, 0, 3);
         segmentTree.incrementBy(3, 0, 0);
-        int foundMin = segmentTree.findMin(3, 5);
+        SegmentTree.El foundMin = segmentTree.findMin(3, 5);
 
         //then
         //then
-        assertThat(foundMin, is(1));
+        assertThat(foundMin.val, is(1));
+        assertThat(foundMin.idx, is(5));
     }
 }

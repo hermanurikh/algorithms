@@ -1,9 +1,7 @@
 package com.qbutton.structures;
 
-import static java.lang.Integer.min;
-
 public class SegmentTree {
-    private final int[] segTree;
+    private final El[] segTree;
     private final int[] lazyUpdates;
     private final int maxIndex;
 
@@ -14,14 +12,14 @@ public class SegmentTree {
         while (nextPowerOf2 < arr.length) {
             nextPowerOf2 *= 2;
         }
-        this.segTree = new int[2 * nextPowerOf2 - 1];
+        this.segTree = new El[2 * nextPowerOf2 - 1];
         this.lazyUpdates = new int[segTree.length];
         //next power of 2, multiply by 2 and subtract 1
         constructTree(arr, 0, maxIndex, 0);
     }
 
     //O(log(n)) - we are looking in at most 4 directions
-    public int findMin(int from, int to) {
+    public El findMin(int from, int to) {
         return findMin(from, to, 0, maxIndex, 0);
     }
 
@@ -44,7 +42,7 @@ public class SegmentTree {
 
         if (startRange <= low && endRange >= high) {
             //total overlap
-            segTree[pos] += delta;
+            segTree[pos].val += delta;
             if (low != high) {
                 //not a leaf
                 lazyUpdates[leftChildIdx] += delta;
@@ -57,11 +55,13 @@ public class SegmentTree {
         int mid = (low+high)/2;
         incrementBy(delta, startRange, endRange, low, mid, leftChildIdx);
         incrementBy(delta, startRange, endRange, mid+1, high, rightChildIdx);
-        segTree[pos] = min(segTree[leftChildIdx], segTree[rightChildIdx]);
+        El left = segTree[leftChildIdx];
+        El right = segTree[rightChildIdx];
+        segTree[pos] = left.val < right.val ? left : right;
     }
 
-    private int findMin(int startRange, int endRange, int low, int high, int pos) {
-        if (low > high) return Integer.MAX_VALUE;
+    private El findMin(int startRange, int endRange, int low, int high, int pos) {
+        if (low > high) return El.MAX;
 
         int leftChildIdx = pos * 2 + 1;
         int rightChildIdx = pos * 2 + 2;
@@ -70,7 +70,7 @@ public class SegmentTree {
 
         if (startRange > high || endRange < low) {
             //no overlap, return pseudo value
-            return Integer.MAX_VALUE;
+            return El.MAX;
         }
 
         if (startRange <= low && endRange >= high) {
@@ -79,15 +79,14 @@ public class SegmentTree {
         }
         int mid = (low + high) / 2;
         // return minimum of min in left child and min in right child
-        return min(
-                findMin(startRange, endRange, low, mid, leftChildIdx),
-                findMin(startRange, endRange, mid + 1, high, rightChildIdx)
-        );
+        var left = findMin(startRange, endRange, low, mid, leftChildIdx);
+        var right = findMin(startRange, endRange, mid + 1, high, rightChildIdx);
+        return left.val < right.val ? left : right;
     }
 
     private void updateLazyForPosAndChildren(int low, int high, int pos, int leftChildIdx, int rightChildIdx) {
         if (lazyUpdates[pos] != 0) {
-            segTree[pos] += lazyUpdates[pos];
+            segTree[pos].val += lazyUpdates[pos];
             if (low != high) {
                 //not a leaf
                 lazyUpdates[leftChildIdx] += lazyUpdates[pos];
@@ -99,7 +98,7 @@ public class SegmentTree {
 
     private void constructTree(int[] arr, int low, int high, int pos) {
         if (low == high) {
-            segTree[pos] = arr[low];
+            segTree[pos] = new El(low, arr[low]);
             return;
         }
         //no overflow expected
@@ -108,6 +107,18 @@ public class SegmentTree {
         int rightChildPos = 2 * pos + 2;
         constructTree(arr, low, mid, leftChildPos);
         constructTree(arr, mid + 1, high, rightChildPos);
-        segTree[pos] = min(segTree[leftChildPos], segTree[rightChildPos]);
+        El left = segTree[leftChildPos];
+        El right = segTree[rightChildPos];
+        segTree[pos] = left.val < right.val ? left : right;
+    }
+
+    static class El {
+        int idx;
+        int val;
+        El(int idx, int val) {
+            this.idx = idx;
+            this.val = val;
+        }
+        static final El MAX = new El(-1, Integer.MAX_VALUE);
     }
 }
