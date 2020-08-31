@@ -2,7 +2,6 @@ package com.qbutton.structures.typsort;
 
 import java.util.*;
 
-//TODO it doesn't work yet.
 public class TypologicalSortIterative {
     public static void main(String[] args) {
 
@@ -25,7 +24,7 @@ public class TypologicalSortIterative {
 
         d.edges.add(e);
 
-        e.edges.add(a);
+        //e.edges.add(a); // uncomment this to test with a loop
 
         Set<Vertex> graph = new HashSet<>(Arrays.asList(a, b, c, d, e));
 
@@ -45,53 +44,32 @@ public class TypologicalSortIterative {
     private static boolean topSort(Set<Vertex> graph, Stack<Vertex> result) {
 
         Set<Vertex> visited = new HashSet<>();
-        Set<Vertex> visiting = new HashSet<>();
 
-        Stack<Vertex> toVisit = new Stack<>();
-
-        for (Vertex v : graph) {
-            toVisit.push(v);
-            while (!toVisit.isEmpty()) {
-                v = toVisit.pop();
-                if (!visited.contains(v)) {
-                    visited.add(v);
-                    visiting.add(v);
-                    for (Vertex e : v.edges) {
-                        if (e.equals(v)) {
-                            return false;
-                        }
-                        toVisit.push(e);
-                    }
-                    result.push(v);
+        Queue<Vertex> queue = new ArrayDeque<>();
+        Map<Vertex, Integer> indegree = new HashMap<>();
+        for (var v : graph) {
+            indegree.putIfAbsent(v, 0);
+            for (var child : v.edges) {
+                indegree.merge(child, 1, (o,n) -> o+1);
+            }
+        }
+        for (var v : graph) {
+            if (indegree.getOrDefault(v, 0) == 0) {
+                queue.offer(v);
+            }
+        }
+        while (!queue.isEmpty()) {
+            var curr = queue.poll();
+            visited.add(curr);
+            result.push(curr);
+            for (var nei : curr.edges) {
+                indegree.merge(nei, 0, (o,n) -> o-1);
+                if (indegree.get(nei) == 0) {
+                    queue.offer(nei);
                 }
             }
         }
-
-        return true;
-    }
-
-    private static boolean doTopSort(Vertex curr, Set<Vertex> visited, Set<Vertex> visiting, Stack<Vertex> result) {
-        if (visited.contains(curr)) {
-            return true;
-        }
-
-        if (visiting.contains(curr)) {
-            return false;
-        }
-
-        visiting.add(curr);
-
-        for (Vertex e : curr.edges) {
-            if (!doTopSort(e, visited, visiting, result)) {
-                return false;
-            }
-        }
-
-        visiting.remove(curr);
-        visited.add(curr);
-        result.push(curr);
-
-        return true;
+        return visited.size() == graph.size();
     }
 
     private static class Vertex {

@@ -8,6 +8,7 @@ import java.math.BigInteger;
 public class Functions {
 
     //https://en.wikipedia.org/wiki/Catalan_number
+    //(2n)!/(n!(n+1)!)
     private int findNthCatalanNumber(int n) {
         BigInteger prev = new BigInteger("1");
         for (int i = 1; i <= n; i++) {
