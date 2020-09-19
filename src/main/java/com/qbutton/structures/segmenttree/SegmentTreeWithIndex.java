@@ -1,19 +1,17 @@
-package com.qbutton.structures;
+package com.qbutton.structures.segmenttree;
 
-public class SegmentTree {
+public class SegmentTreeWithIndex {
     private final El[] segTree;
-    private final int[] lazyUpdates;
     private final int maxIndex;
 
     //O(n) construction cost - because the size of segTree will be at max 4 times bigger then arr, and we do constant work per element
-    public SegmentTree(int[] arr) {
+    public SegmentTreeWithIndex(int[] arr) {
         this.maxIndex = arr.length - 1;
         int nextPowerOf2 = 2;
         while (nextPowerOf2 < arr.length) {
             nextPowerOf2 *= 2;
         }
         this.segTree = new El[2 * nextPowerOf2 - 1];
-        this.lazyUpdates = new int[segTree.length];
         //next power of 2, multiply by 2 and subtract 1
         constructTree(arr, 0, maxIndex, 0);
     }
@@ -23,50 +21,11 @@ public class SegmentTree {
         return findMin(from, to, 0, maxIndex, 0);
     }
 
-    public void incrementBy(int delta, int from, int to) {
-        incrementBy(delta, from, to, 0, maxIndex, 0);
-    }
-
-    private void incrementBy(int delta, int startRange, int endRange, int low, int high, int pos) {
-        if (low > high) return;
-
-        int leftChildIdx = pos * 2 + 1;
-        int rightChildIdx = pos * 2 + 2;
-
-        updateLazyForPosAndChildren(low, high, pos, leftChildIdx, rightChildIdx);
-
-        //no overlap
-        if (startRange > high || endRange < low) {
-            return;
-        }
-
-        if (startRange <= low && endRange >= high) {
-            //total overlap
-            segTree[pos].val += delta;
-            if (low != high) {
-                //not a leaf
-                lazyUpdates[leftChildIdx] += delta;
-                lazyUpdates[rightChildIdx] += delta;
-            }
-            return;
-        }
-
-        //partial overlap
-        int mid = (low+high)/2;
-        incrementBy(delta, startRange, endRange, low, mid, leftChildIdx);
-        incrementBy(delta, startRange, endRange, mid+1, high, rightChildIdx);
-        El left = segTree[leftChildIdx];
-        El right = segTree[rightChildIdx];
-        segTree[pos] = left.val < right.val ? left : right;
-    }
-
     private El findMin(int startRange, int endRange, int low, int high, int pos) {
         if (low > high) return El.MAX;
 
         int leftChildIdx = pos * 2 + 1;
         int rightChildIdx = pos * 2 + 2;
-
-        updateLazyForPosAndChildren(low, high, pos, leftChildIdx, rightChildIdx);
 
         if (startRange > high || endRange < low) {
             //no overlap, return pseudo value
@@ -84,18 +43,6 @@ public class SegmentTree {
         return left.val < right.val ? left : right;
     }
 
-    private void updateLazyForPosAndChildren(int low, int high, int pos, int leftChildIdx, int rightChildIdx) {
-        if (lazyUpdates[pos] != 0) {
-            segTree[pos].val += lazyUpdates[pos];
-            if (low != high) {
-                //not a leaf
-                lazyUpdates[leftChildIdx] += lazyUpdates[pos];
-                lazyUpdates[rightChildIdx] += lazyUpdates[pos];
-            }
-            lazyUpdates[pos] = 0;
-        }
-    }
-
     private void constructTree(int[] arr, int low, int high, int pos) {
         if (low == high) {
             segTree[pos] = new El(low, arr[low]);
@@ -109,7 +56,7 @@ public class SegmentTree {
         constructTree(arr, mid + 1, high, rightChildPos);
         El left = segTree[leftChildPos];
         El right = segTree[rightChildPos];
-        segTree[pos] = left.val < right.val ? left : right;
+        segTree[pos] = left.val < right.val ? new El(left) : new El(right);
     }
 
     static class El {
@@ -118,6 +65,10 @@ public class SegmentTree {
         El(int idx, int val) {
             this.idx = idx;
             this.val = val;
+        }
+        El(El other) {
+            this.idx = other.idx;
+            this.val = other.val;
         }
         static final El MAX = new El(-1, Integer.MAX_VALUE);
     }

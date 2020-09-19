@@ -1,4 +1,4 @@
-package com.qbutton.structures;
+package com.qbutton.structures.segmenttree;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,10 +52,10 @@ public class SegmentTreeFindMinTest {
     @Test
     public void findMin_shouldPickMinCorrectly1() {
         //given
-        var segmentTree = new SegmentTree(array);
+        var segmentTree = new SegmentTreeWithIndex(array);
 
         //when
-        SegmentTree.El foundMin = segmentTree.findMin(from, to);
+        SegmentTreeWithIndex.El foundMin = segmentTree.findMin(from, to);
 
         //then
         assertThat(foundMin.val, is(minVal));
