@@ -3,8 +3,7 @@ package com.qbutton.structures.dijkstra;
 import com.qbutton.structures.BinaryHeapMap;
 import com.qbutton.structures.Vertex;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Dijkstra {
 
@@ -44,6 +43,10 @@ public class Dijkstra {
         result.forEach(v -> System.out.format("shortest path from %s to %s is %d\n", source, v.getName(), v.getDistance()));
     }
 
+    /*
+    O((V + E) * log V)
+   For each vertex we explore all adjacent - this is V + E. But every vertex is extracted from binary heap, and that is logV.
+    */
     private static List<Vertex> findShortestPaths(BinaryHeapMap<String, Integer> vertices, Integer[][] graph, String source) {
         List<Vertex> result = new ArrayList<>();
 
@@ -68,6 +71,25 @@ public class Dijkstra {
 
 
         return result;
+    }
+
+    //no binary heap
+    static Map<Integer, Integer> findShortestPaths(Queue<int[]> minHeap, Integer[][] graph) {
+        Map<Integer, Integer> res = new HashMap<>();
+        while (!minHeap.isEmpty()) {
+            var vertex = minHeap.poll();
+            int idx = vertex[0];
+            int dist = vertex[1];
+            if (res.containsKey(idx)) continue;;
+            res.put(idx, dist);
+            System.out.println("answering vertex " + idx + " with distance " + dist);
+            for (int i = 0; i < graph[idx].length; i++) {
+                Integer currDist = graph[idx][i];
+                if (currDist == null) continue; //no edge
+                minHeap.offer(new int[]{i, currDist + dist});
+            }
+        }
+        return res;
     }
 
     private static int getVertexIndex(String name) {
