@@ -80,7 +80,7 @@ public class Dijkstra {
             var vertex = minHeap.poll();
             int idx = vertex[0];
             int dist = vertex[1];
-            if (res.containsKey(idx)) continue;;
+            if (res.containsKey(idx)) continue;
             res.put(idx, dist);
             System.out.println("answering vertex " + idx + " with distance " + dist);
             for (int i = 0; i < graph[idx].length; i++) {
