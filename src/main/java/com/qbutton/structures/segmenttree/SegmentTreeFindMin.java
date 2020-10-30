@@ -1,12 +1,12 @@
 package com.qbutton.structures.segmenttree;
 
-public class SegmentTree {
+public class SegmentTreeFindMin {
     private final int[] segTree;
     private final int[] lazyUpdates;
     private final int maxIndex;
 
     //O(n) construction cost - because the size of segTree will be at max 4 times bigger then arr, and we do constant work per element
-    public SegmentTree(int[] arr) {
+    public SegmentTreeFindMin(int[] arr) {
         this.maxIndex = arr.length - 1;
         int nextPowerOf2 = 2;
         while (nextPowerOf2 < arr.length) {

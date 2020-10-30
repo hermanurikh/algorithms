@@ -11,7 +11,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
-public class SegmentTreeFindMinTest {
+public class SegmentTreeFindMinFindMinTest {
 
     private final int[] array = {1,0,3,-5,4,6,2};
 
@@ -20,7 +20,7 @@ public class SegmentTreeFindMinTest {
     private final int minVal;
     private final int minIdx;
 
-    public SegmentTreeFindMinTest(int from, int to, int minVal, int minIdx) {
+    public SegmentTreeFindMinFindMinTest(int from, int to, int minVal, int minIdx) {
         this.from = from;
         this.to = to;
         this.minVal = minVal;
