@@ -1,7 +1,7 @@
 package com.qbutton.structures.dijkstra;
 
 import com.qbutton.structures.BinaryHeapMap;
-import com.qbutton.structures.Vertex;
+import com.qbutton.structures.BinaryHeapMap.Pair;
 
 import java.util.*;
 
@@ -9,27 +9,14 @@ public class Dijkstra {
 
     public static void main(String[] args) {
 
-        Integer[][] graph = {
-                {null, 5, null, 9, 2, null},
-                {5, null, 2, null, null, null},
-                {null, 2, null, 3, null, null},
-                {9, null, 3, null, null, 2},
-                {2, null, null, null, null, 3},
-                {null, null, null, 2, 3, null}
-        };
-
-        BinaryHeapMap<String, Integer> vertices = new BinaryHeapMap<>();
-
-        vertices.put("A", Integer.MAX_VALUE);
-        vertices.put("B", Integer.MAX_VALUE);
-        vertices.put("C", Integer.MAX_VALUE);
-        vertices.put("D", Integer.MAX_VALUE);
-        vertices.put("E", Integer.MAX_VALUE);
-        vertices.put("F", Integer.MAX_VALUE);
-
-        String source = "A";
-
-        List<Vertex> result = findShortestPaths(vertices, graph, source);
+        Map<String, Set<Pair<String, Integer>>> g = Map.of(
+                "A", Set.of(new Pair<>("B",5),new Pair<>("D",9),new Pair<>("E",2)),
+                "B", Set.of(new Pair<>("A",5),new Pair<>("C",2)),
+                "C", Set.of(new Pair<>("B",2),new Pair<>("D",3)),
+                "D", Set.of(new Pair<>("A",9),new Pair<>("C",3),new Pair<>("F",2)),
+                "E", Set.of(new Pair<>("A",2),new Pair<>("F",3)),
+                "F", Set.of(new Pair<>("D",2),new Pair<>("E",3))
+        );
 
         /*
         shortest path from A to A is 0
@@ -40,41 +27,40 @@ public class Dijkstra {
         shortest path from A to D is 7
          */
 
-        result.forEach(v -> System.out.format("shortest path from %s to %s is %d\n", source, v.getName(), v.getDistance()));
+        Map<String, Integer> res = findDistances(g, "A");
+        System.out.println(res);
     }
 
     /*
     O((V + E) * log V)
    For each vertex we explore all adjacent - this is V + E. But every vertex is extracted from binary heap, and that is logV.
     */
-    private static List<Vertex> findShortestPaths(BinaryHeapMap<String, Integer> vertices, Integer[][] graph, String source) {
-        List<Vertex> result = new ArrayList<>();
 
+    private static <T> Map<T, Integer> findDistances(Map<T, Set<Pair<T,Integer>>> graph, T source) {
+        BinaryHeapMap<T, Integer> vertices = new BinaryHeapMap<>();
+        graph.keySet().forEach(key -> vertices.put(key, Integer.MAX_VALUE));
         vertices.decreaseKey(source, 0);
+        Map<T, Integer> res = new HashMap<>();
 
         while (!vertices.isEmpty()) {
-            BinaryHeapMap.Pair<String, Integer> curr = vertices.extractMin();
-            Vertex v = new Vertex(curr.getKey());
-            v.setDistance(curr.getValue());
-            result.add(v);
+            Pair<T, Integer> curr = vertices.extractMin();
+            var distance = curr.getValue();
+            res.put(curr.getKey(), distance);
 
-            Integer[] edges = graph[getVertexIndex(curr.getKey())];
-            for (int i = 0; i < edges.length; i++) {
-                Integer edgeDistance = edges[i];
-                if (edgeDistance != null && vertices.containsKey(getVertex(i))) {
-                    if (v.getDistance() + edgeDistance < vertices.getDistance(getVertex(i))) {
-                        vertices.decreaseKey(getVertex(i), v.getDistance() + edgeDistance);
-                    }
+            for (var edge : graph.getOrDefault(curr.getKey(), Collections.emptySet())) {
+                var otherV = edge.getKey();
+                var cost = edge.getValue();
+                if (vertices.containsKey(otherV) && cost + distance < vertices.getDistance(otherV)) {
+                    vertices.decreaseKey(otherV, cost + distance);
                 }
             }
         }
 
-
-        return result;
+        return res;
     }
 
     //no binary heap
-    static Map<Integer, Integer> findShortestPaths(Queue<int[]> minHeap, Integer[][] graph) {
+    static Map<Integer, Integer> findShortestPaths(PriorityQueue<int[]> minHeap, Integer[][] graph) {
         Map<Integer, Integer> res = new HashMap<>();
         while (!minHeap.isEmpty()) {
             var vertex = minHeap.poll();
@@ -92,11 +78,4 @@ public class Dijkstra {
         return res;
     }
 
-    private static int getVertexIndex(String name) {
-        return name.charAt(0) - 'A';
-    }
-
-    private static String getVertex(int index) {
-        return (char) ('A' + index) + "";
-    }
 }

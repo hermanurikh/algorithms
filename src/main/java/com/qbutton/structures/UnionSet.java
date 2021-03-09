@@ -2,9 +2,10 @@ package com.qbutton.structures;
 
 /*
 
-Time - O(alpha (n)), where alpha(n) for all practical cases is <= 4, so pretty much O(1). See CLRS.
+Say it out loud!!
+Time - O(alpha (n)), where alpha(n) for all practical cases is <= 4 (Inverse Ackermann function), so pretty much O(1).
+See CLRS.
 Space - O(n)
-
  */
 public class UnionSet {
     int[] parent;
