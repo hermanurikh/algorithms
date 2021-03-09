@@ -36,10 +36,10 @@ public class Dijkstra {
    For each vertex we explore all adjacent - this is V + E. But every vertex is extracted from binary heap, and that is logV.
     */
 
-    private static <T> Map<T, Integer> findDistances(Map<T, Set<Pair<T,Integer>>> graph, T source) {
+    private static <T> Map<T, Integer> findDistances(Map<T, Set<Pair<T,Integer>>> graph, T sourceV) {
         BinaryHeapMap<T, Integer> vertices = new BinaryHeapMap<>();
         graph.keySet().forEach(key -> vertices.put(key, Integer.MAX_VALUE));
-        vertices.decreaseKey(source, 0);
+        vertices.decreaseKey(sourceV, 0);
         Map<T, Integer> res = new HashMap<>();
 
         while (!vertices.isEmpty()) {
