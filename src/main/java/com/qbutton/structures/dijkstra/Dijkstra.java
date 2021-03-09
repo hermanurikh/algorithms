@@ -27,8 +27,8 @@ public class Dijkstra {
         shortest path from A to D is 7
          */
 
-        Map<String, Integer> res = findDistances(g, "A");
-        System.out.println(res);
+        Map<String, Integer> shortestPaths = findDistances(g, "A");
+        System.out.println(shortestPaths);
     }
 
     /*
